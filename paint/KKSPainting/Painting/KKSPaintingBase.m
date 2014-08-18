@@ -186,16 +186,17 @@
 
     CGPoint centerPoint = [self centerPoint];
 
-    if (self.zoomScale) {
+    if (self.zoomScale != 1.f) {
         transform = CGAffineTransformScale(transform, self.zoomScale, self.zoomScale);
+        self.realLineWidth = self.lineWidth * self.zoomScale;
     }
 
     transform = CGAffineTransformTranslate(transform, centerPoint.x, centerPoint.y);
     transform = CGAffineTransformRotate(transform, self.rotateDegree);
     if (self.zoomAroundCenterScale != 1.f) {
         transform = CGAffineTransformScale(transform, self.zoomAroundCenterScale, self.zoomAroundCenterScale);
+        self.realLineWidth = self.lineWidth * self.zoomAroundCenterScale;
     }
-    self.realLineWidth = self.lineWidth * self.zoomAroundCenterScale;
     transform = CGAffineTransformTranslate(transform, -1 * centerPoint.x, -1 * centerPoint.y);
 
     self.transform = transform;
